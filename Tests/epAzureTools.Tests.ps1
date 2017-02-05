@@ -9,5 +9,8 @@ describe 'DC-Test' {
             (Get-Service -ComputerName Excelsior -Name NTDS).Status | should be 'Running'
         }
     }
+    context 'Best Practice' {
+        it 'NTDS is o'
+    }
 
 }
