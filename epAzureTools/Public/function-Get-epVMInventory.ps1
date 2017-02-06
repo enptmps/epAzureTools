@@ -15,13 +15,16 @@ function Get-epVMInventory {
 
     ForEach ($VM in $VMs){
          $NetworkInterfaceID = ($VM.NetworkProfile.NetworkInterfaces).Id
-         $PrimaryInternalIPAddress = $NetworkInterfaceId.IpConfigurations[0].PrivateIpAddress
-    }
+         $NetworkInterface = Get-AzureRMNEtworkInterface | ?{$_.id -eq "$NetworkInterfaceID"}
+         $PrimaryInternalIPAddress = $NetworkInterface.IpConfigurations[0].PrivateIpAddress
+    
 
     $VMInventoryObject = New-Object -TypeName psobject
-    $VMInventoryObject | Add-Member -Type NoteProperty -Name 'Name' -Value
-    $VMInventoryObject | Add-Member -Type NoteProperty -Name 'IPAddress' -Value
+    $VMInventoryObject | Add-Member -Type NoteProperty -Name 'Name' -Value $VM.Name
+    $VMInventoryObject | Add-Member -Type NoteProperty -Name 'IPAddress' -Value $PrimaryInternalIPAddress
 
     $OutputObject += $VMInventoryObject
+    }
+    
+    Return $OutputObject
 }
-#Get-AzureRMNEtworkInterface | ?{$_.id -eq "$a"}
