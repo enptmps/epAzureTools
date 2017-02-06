@@ -5,6 +5,7 @@ $module = 'epAzureTools'
 $moduleroot = "$here\..\$module"
 $pvtFunction = "$moduleroot\Private"
 $pubFunction = "$moduleroot\Public"
+$testroot = $here
 
 Describe -Tags ('Unit', 'Acceptance') "$module Module Tests"  {
 
@@ -37,61 +38,63 @@ Describe -Tags ('Unit', 'Acceptance') "$module Module Tests"  {
   } # Context 'Module Setup'
 
 
-  $functions = ((Get-ChildItem C:\Data\Code\Repos\enptmps\epAzureTools\epAzureTools\ -Recurse) | Where-Object {$_.name -like "function-*"})
-  $functionPaths = ($functions).PSPath
-  $functionNames = $functions | % basename
-  #$functions = ('Get-NoAgenda',
-  #              'Get-PodcastData',
-  #              'Get-PodcastMedia',
-  #              'Get-PodcastImage',
-  #              'ConvertTo-PodcastHtml',
-  #              'ConvertTo-PodcastXML',
-  #              'Write-PodcastHtml', 
-  #              'Write-PodcastXML'
-  #             )
+  $functions = ((Get-ChildItem ..\ -Recurse) | Where-Object {$_.name -like "function-*"})
+  $functionList = @() 
+  ForEach ($function in $functions){
+    $functionPath = $function.FullName
+    $functionFileName = $function.basename
+    $functionName = $function.Name.Substring(9)
+  
+    $functionObject = New-Object -TypeName psobject
+    $functionObject | Add-Member -MemberType NoteProperty -Name "Path" -Value $functionPath
+    $functionObject | Add-Member -MemberType NoteProperty -Name "FileName" -Value $functionFileName
+    $functionObject | Add-Member -MemberType NoteProperty -Name "Name" -Value $FunctionName
+  
+    $functionList += $functionObject
+  }
 
-  foreach ($function in $functions)
+  foreach ($function in $functionList)
   {
       $function | Split-Path
-    Context "Test Function $function" {
+    Context "Test Function $($function.Name)" {
       
-      It "$function.ps1 should exist" {
-        "$here\function-$function.ps1" | Should Exist
+      It "$($function.FileName) should exist" {
+        "$($function.Path)" | Should Exist
       }
     
-      It "$function.ps1 should have help block" {
-        "$here\function-$function.ps1" | Should Contain '<#'
-        "$here\function-$function.ps1" | Should Contain '#>'
+      It "$($function.FileName) should have help block" {
+        "$($function.Path)" | Should Contain '<#'
+        "$($function.Path)" | Should Contain '#>'
       }
 
-      It "$function.ps1 should have a SYNOPSIS section in the help block" {
-        "$here\function-$function.ps1" | Should Contain '.SYNOPSIS'
+      It "$($function.FileName) should have a SYNOPSIS section in the help block" {
+        "$($function.Path)" | Should Contain '.SYNOPSIS'
       }
     
-      It "$function.ps1 should have a DESCRIPTION section in the help block" {
-        "$here\function-$function.ps1" | Should Contain '.DESCRIPTION'
+      It "$($function.FileName) should have a DESCRIPTION section in the help block" {
+        "$($function.Path)" | Should Contain '.DESCRIPTION'
       }
 
-      It "$function.ps1 should have a EXAMPLE section in the help block" {
-        "$here\function-$function.ps1" | Should Contain '.EXAMPLE'
+      It "$($function.FileName) should have a EXAMPLE section in the help block" {
+        "$($function.Path)" | Should Contain '.EXAMPLE'
       }
     
-      It "$function.ps1 should be an advanced function" {
-        "$here\function-$function.ps1" | Should Contain 'function'
-        "$here\function-$function.ps1" | Should Contain 'cmdletbinding'
-        "$here\function-$function.ps1" | Should Contain 'param'
+      It "$($function.FileName) should be an advanced function" {
+        "$($function.Path)" | Should Contain 'function'
+        "$($function.Path)" | Should Contain 'cmdletbinding'
+        "$($function.Path)" | Should Contain 'param'
       }
       
-      It "$function.ps1 should contain Write-Verbose blocks" {
-        "$here\function-$function.ps1" | Should Contain 'Write-Verbose'
+      It "$($function.FileName) should contain Write-Verbose blocks" {
+        "$($function.Path)" | Should Contain 'Write-Verbose'
       }
     
-      It "$function.ps1 should not contain Write-Host blocks" {
-        "$here\function-$function.ps1" | Should not Contain 'Write-Host'
+      It "$($function.FileName) should not contain Write-Host blocks" {
+        "$($function.Path)" | Should not Contain 'Write-Host'
       }
     
-      It "$function.ps1 is valid PowerShell code" {
-        $psFile = Get-Content -Path "$here\function-$function.ps1" `
+      It "$($function.FileName) is valid PowerShell code" {
+        $psFile = Get-Content -Path "$($function.Path)" `
                               -ErrorAction Stop
         $errors = $null
         $null = [System.Management.Automation.PSParser]::Tokenize($psFile, [ref]$errors)
@@ -101,9 +104,9 @@ Describe -Tags ('Unit', 'Acceptance') "$module Module Tests"  {
     
     } # Context "Test Function $function"
 
-    Context "$function has tests" {
-      It "function-$($function).Tests.ps1 should exist" {
-        "function-$($function).Tests.ps1" | Should Exist
+    Context "$($function.FileName) has tests" {
+      It "$here\$($function.FileName).Tests.ps1 should exist" {
+        "$here\$($function.FileName).Tests.ps1" | Should Exist
       }
     }
   

@@ -1,22 +1,20 @@
-function Connect-AzureFileShare {
-    <#
-    .Synopsis
-    Connect-AzureFileShare quickly maps an Azure file share to a drive letter of your choice
-    .DESCRIPTION
-    Long description
-    .EXAMPLE
-    Connect-AzureFileShare -StorageAccountName "someaccount01" -ShareName "myfileshare" -DriveLetter "M"
-    .EXAMPLE
-    Connect-AzureFileShare
-    .INPUTS
-    Inputs to this cmdlet (if any)
-    .OUTPUTS
-    Returns a properly formatted 'net use' command
-    .COMPONENT
-    ENPTMPS AzureTools module (future)
-    .FUNCTIONALITY
-    Searchs for the given storage account, grabs the Key and trys to mount the share
-    #>
+function Connect-epAzureFileShare {
+<#
+.SYNOPSIS
+Connect-epAzureFileShare quickly maps an Azure file share to a drive letter of your choice
+.DESCRIPTION
+Long description
+.EXAMPLE
+Connect-epAzureFileShare -StorageAccountName "someaccount01" -ShareName "myfileshare" -DriveLetter "M"
+.EXAMPLE
+Connect-epAzureFileShare
+.OUTPUTS
+Returns a properly formatted 'net use' command
+.COMPONENT
+epAzureTools module (future)
+.FUNCTIONALITY
+Searchs for the given storage account, grabs the Key and trys to mount the share
+#>
     [CmdletBinding()]
     Param(
         [Parameter(Mandatory=$true)]
