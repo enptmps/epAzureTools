@@ -2,6 +2,7 @@
 #. $PSScriptRoot\Public\function-Disable-epAzureRemoteAccess.ps1
 . $PSScriptRoot\Public\function-Get-epOutsideIPAddress.ps1
 . $PSScriptRoot\Public\function-Connect-epAzureFileShare.ps1
+. $PSScriptRoot\Public\function-Get-epVMInventory.ps1
 #. $PSScriptRoot\Private\function-Add-epAzureSimpleNSGRule.ps1
 #. $PSScriptRoot\Private\funciton-Remove-epAzureSimpleNSGRule.ps1
 

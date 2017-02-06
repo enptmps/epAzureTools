@@ -22,6 +22,7 @@
 
 ### Enable-epAzureRemoteAccess
 * Get current outside IP address of location where command was executed
+* Check for PublicIP, Create and Map if non-existent (helper function)
 * Amend/Create NSG to VM specified
 * Allow 3389 inbound from OutsideIP by default
 * Allow 22 inbound from OutsideIP if -Linux switch is triggered
@@ -64,3 +65,7 @@
 * Recreate Connection
 
 ### New-epAzureVPN
+
+### Start-ASRProtectedVirtualMachineFailoverTest
+
+### Complete-ASRProtectedVirtualMachineFailoverTest
