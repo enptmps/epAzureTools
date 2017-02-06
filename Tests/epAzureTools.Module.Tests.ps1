@@ -38,7 +38,7 @@ Describe -Tags ('Unit', 'Acceptance') "$module Module Tests"  {
   } # Context 'Module Setup'
 
 
-  $functions = ((Get-ChildItem ..\ -Recurse) | Where-Object {$_.name -like "function-*"})
+  $functions = ((Get-ChildItem ..\ -Recurse -Exclude "*Tests.ps1") | Where-Object {$_.name -like "function-*"})
   $functionList = @() 
   ForEach ($function in $functions){
     $functionPath = $function.FullName
