@@ -8,7 +8,7 @@
 
 ## Functions
 
-* Functions will be devided into public and private based on end user exposure
+* Functions will be divided into public and private based on end user exposure
 * Functions will contain working PowerShell code
 * Functions will contain a help block starting with <# and ending with #>
 * Functions help block will contain a .SYNOPSYS area
@@ -22,7 +22,7 @@
 
 ### Enable-epAzureRemoteAccess
 * Get current outside IP address of location where command was executed
-* Ammend/Create NSG to VM specified
+* Amend/Create NSG to VM specified
 * Allow 3389 inbound from OutsideIP by default
 * Allow 22 inbound from OutsideIP if -Linux switch is triggered
 * Not break any existing NSG/NSG Rules in place
