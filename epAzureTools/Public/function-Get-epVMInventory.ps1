@@ -14,7 +14,7 @@ function Get-epVMInventory {
     $OutputObject = @()
 
     ForEach ($VM in $VMs){
-         $NetworkInterfaceID = ($VM.NetworkProfile.NetworkInterfaces).Id
+         $NetworkInterfaceID = ($VM.NetworkProfile.NetworkInterfaces)[0].Id
          $NetworkInterface = Get-AzureRMNEtworkInterface | ?{$_.id -eq "$NetworkInterfaceID"}
          $PrimaryInternalIPAddress = $NetworkInterface.IpConfigurations[0].PrivateIpAddress
     

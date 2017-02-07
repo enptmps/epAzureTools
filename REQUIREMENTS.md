@@ -67,5 +67,18 @@
 ### New-epAzureVPN
 
 ### Start-ASRProtectedVirtualMachineFailoverTest
+* [INPUT]
+* Test given machine is actually protected
+* If protected initiate failover Test
+* Check network attachment, assume defaults as needed
+* Verify successful turnup
+* [SWITCH]$RemoteAccess then call Enable-epAzureRemoteAccess
 
 ### Complete-ASRProtectedVirtualMachineFailoverTest
+* [INPUT]
+* Clear any associated public IP/NSG
+* Clear the failover test
+
+### Get-VMInventory
+* [INPUT] ResourceGroup
+* [OUTPUT] CustomObject (Name, ResourceGroup, Nic[], IPAddress[], VHDs[Name, StorageAccount, Blob, Type, Size], NSGInEffect[])
