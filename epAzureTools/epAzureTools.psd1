@@ -1,7 +1,7 @@
 @{
 
 # Name of the module to process
-ModuleToProcess = 'epAzureTools.psm1'
+RootModule = 'epAzureTools.psm1'
 
 # Each module has to be uniquely identified. To do that PS uses a GUID.
 # To generate a GUID, use the New-Guid cmdlet and copy the result in here
@@ -20,16 +20,16 @@ Copyright = '(c) 2017 All rights reserved'
 Description = 'Azure helper functions for En Pointe staff'
 
 # Version number for the module
-ModuleVersion = '1.0.0.0'
+ModuleVersion = '0.0.1.0'
 
 # Minimum version of PowerShell needed to run this module
-PowerShellVersion = '5.0'
+#PowerShellVersion = '5.0'
 
 # Min version of .NET Framework required 
-DotNetFrameworkVersion = '2.0'
+#DotNetFrameworkVersion = '2.0'
 
 # Min version of the CLR required 
-CLRVersion = '2.0.50727'
+#CLRVersion = '2.0.50727'
 
 # Note there are many more items you can set.
 }
